@@ -72,4 +72,23 @@ public class MemberController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    // GET: 개별 유저 정보 전체 조회
+    @GetMapping("/user")
+    public ResponseEntity<List<MemberVO>> memberList(@RequestParam Integer no) {
+        System.out.println("유저 번호: " + no);
+        MemberDAO dao = new MemberDAO();
+        List<MemberVO> list = dao.memberSelect(no);
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    // Post: 유저 sbti 업데이트
+    @PostMapping("/sbtiupdate")
+    public ResponseEntity<Boolean> sbtiUpdate(@RequestBody SbtiUpdateRequest sbtiData) {
+        int getId = sbtiData.getUser_no();
+        String getSbtiRes = sbtiData.getUser_sbti();
+        MemberDAO dao = new MemberDAO();
+        boolean isTrue = dao.sbtiUpdate(getId, getSbtiRes);
+        return new ResponseEntity<>(isTrue, HttpStatus.OK);
+    }
+
 }

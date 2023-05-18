@@ -13,6 +13,7 @@ public class MemberDAO {
     private ResultSet rs = null;
     private PreparedStatement pStmt = null;
 
+    // 개별 사용자 정보 전체 조회
     public List<MemberVO> memberSelect(int getNo) {
         List<MemberVO> list = new ArrayList<>();
         try {
@@ -52,6 +53,7 @@ public class MemberDAO {
         return list;
     }
 
+    // 사용자 sbti 업데이트
     public boolean sbtiUpdate(int user_no, String user_sbti) {
         int result = 0;
         String sql = "UPDATE MEMBER_INFO SET USER_SBTI = ? WHERE USER_NO = ?";

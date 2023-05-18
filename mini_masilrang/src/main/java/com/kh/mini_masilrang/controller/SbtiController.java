@@ -16,7 +16,7 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 // rest 방식의 요청에 응답을 주겠다
 @RestController
-public class Controller {
+public class SbtiController {
 
     @GetMapping("/sbti")
     public ResponseEntity<List<SbtiQuestionVO>> questionList(@RequestParam Integer number) {
@@ -26,29 +26,12 @@ public class Controller {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
-    @GetMapping("/user")
-    public ResponseEntity<List<MemberVO>> memberList(@RequestParam Integer no) {
-        System.out.println("유저 번호: " + no);
-        MemberDAO dao = new MemberDAO();
-        List<MemberVO> list = dao.memberSelect(no);
-        return new ResponseEntity<>(list, HttpStatus.OK);
-    }
-
     @GetMapping("/sbtirecommend")
     public  ResponseEntity<List<SbtiResultVO>> sbtiList(@RequestParam String cat) {
         System.out.println("카테고리: " + cat);
         SbtiResultDAO dao = new SbtiResultDAO();
         List<SbtiResultVO> list = dao.sbtiRecommend(cat);
         return new ResponseEntity<>(list, HttpStatus.OK);
-    }
-
-    @PostMapping("/sbtiupdate")
-    public ResponseEntity<Boolean> sbtiUpdate(@RequestBody SbtiUpdateRequest sbtiData) {
-        int getId = sbtiData.getUser_no();
-        String getSbtiRes = sbtiData.getUser_sbti();
-        MemberDAO dao = new MemberDAO();
-        boolean isTrue = dao.sbtiUpdate(getId, getSbtiRes);
-        return new ResponseEntity<>(isTrue, HttpStatus.OK);
     }
 
 }
