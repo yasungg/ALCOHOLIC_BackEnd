@@ -107,7 +107,7 @@ public class MemberDAO {
     // 회원 가입
     public boolean memberRegister(String user_id, String user_pw, String user_name, String user_jumin, String user_email,String user_phone) {
         int result = 0;
-        String sql = "INSERT INTO MEMBER_INFO(USER_NO, USER_ID, USER_PW, USER_NAME, USER_JUMIN, USER_EMAIL, USER_PHONE, USER_SBTI) VALUES(10000006,?, ?, ?, ?, ?, ?,NULL)";
+        String sql = "INSERT INTO MEMBER_INFO(USER_NO, USER_ID, USER_PW, USER_NAME, USER_JUMIN, USER_EMAIL, USER_PHONE, USER_SBTI) VALUES(USER_SQNO.NEXTVAL,?, ?, ?, ?, ?, ?,NULL)";
         try {
             conn = Common.getConnection();
             pStmt = conn.prepareStatement(sql);
