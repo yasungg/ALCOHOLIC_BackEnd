@@ -195,4 +195,25 @@ public class ProductDAO {
         }
         return list;
     }
+    // 관심 상품 하트 표시
+    public boolean heartCheck(int product_no, int userNum) {
+        int result = 0;
+        String sql = "SELECT * FROM LIKEPRODUCT WHERE USER_NO = ? AND PRODUCT_NO = ?";
+        try {
+            conn = Common.getConnection();
+            pStmt = conn.prepareStatement(sql);
+            pStmt.setInt(1, userNum);
+            pStmt.setInt(2, product_no);
+            result = pStmt.executeUpdate();
+            System.out.println("데이터베이스에서 정보 확인 : " + result);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Common.close(pStmt);
+        Common.close(conn);
+
+        if (result == 1) return true;
+        else return false;
+    }
 }

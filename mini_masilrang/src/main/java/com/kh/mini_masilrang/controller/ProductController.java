@@ -21,6 +21,7 @@ public class ProductController {
         List<ProductVO> list1 = dao.productFind(checked);
         return new ResponseEntity<>(list1, HttpStatus.OK);
     }
+
     @GetMapping("/theme")
     public ResponseEntity<List<ProductVO>> productThemeGet(@RequestParam String theme) {
         ProductDAO dao = new ProductDAO();
@@ -34,20 +35,31 @@ public class ProductController {
         List<ProductVO> list = dao.ProductInfo(product);
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
+
     // 관심상품 추가
     @PostMapping("/insertLikeProduct")
     public ResponseEntity<Boolean> insertLikeProduct(@RequestBody Map<String, Integer> insertProduct) {
         int userNo = insertProduct.get("userNum");
         int productNo = insertProduct.get("productNum");
         ProductDAO dao = new ProductDAO();
-        boolean isTrue =dao.insertLikeProduct(productNo,userNo);
+        boolean isTrue = dao.insertLikeProduct(productNo, userNo);
         return new ResponseEntity<>(isTrue, HttpStatus.OK);
     }
+
     // 관심 상품 조회
     @GetMapping("/likeProduct")
     public ResponseEntity<List<LikeProductVO>> likeProductInfo(@RequestParam int userNo) {
         ProductDAO dao = new ProductDAO();
         List<LikeProductVO> list = dao.likeProduct(userNo);
         return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    //개인별 관심상품 등록 유지
+    @GetMapping("/checkHeart")
+    public ResponseEntity<Boolean> likeProductHeart(@RequestParam  Integer product_no, Integer userNum) {
+        ProductDAO dao = new ProductDAO();
+        boolean isTrue = dao.heartCheck(product_no, userNum);
+        return new ResponseEntity<>(isTrue, HttpStatus.OK);
+
     }
 }

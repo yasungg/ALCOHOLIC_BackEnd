@@ -205,7 +205,6 @@ public class MemberDAO {
                 String id = rs.getString("USER_ID");
                 MemberVO vo = new MemberVO();
                 vo.setUser_id(id);
-                ;
                 list.add(vo);
             }
             Common.close(rs);
