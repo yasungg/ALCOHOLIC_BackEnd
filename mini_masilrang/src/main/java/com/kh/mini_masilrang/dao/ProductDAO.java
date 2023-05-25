@@ -216,4 +216,25 @@ public class ProductDAO {
         if (result == 1) return true;
         else return false;
     }
+    public boolean deleteLikeProduct(int productNo, int userNo) {
+        int result = 0;
+        String sql = "DELETE FROM LIKEPRODUCT WHERE USER_NO =? AND PRODUCT_NO = ?";
+
+        try {
+            conn = Common.getConnection();
+            pStmt = conn.prepareStatement(sql);
+            pStmt.setInt(1, userNo);
+            pStmt.setInt(2, productNo);
+            result = pStmt.executeUpdate();
+            System.out.println("관심 상품 삭제 결과 : " + result);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Common.close(pStmt);
+        Common.close(conn);
+
+        if (result == 1) return true;
+        else return false;
+    }
 }

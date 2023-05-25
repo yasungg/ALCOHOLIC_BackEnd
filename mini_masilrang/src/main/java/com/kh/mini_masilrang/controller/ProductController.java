@@ -54,12 +54,21 @@ public class ProductController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
-    //개인별 관심상품 등록 유지
+    // 개인별 관심상품 등록 유지
     @GetMapping("/checkHeart")
     public ResponseEntity<Boolean> likeProductHeart(@RequestParam  Integer product_no, Integer userNum) {
         ProductDAO dao = new ProductDAO();
         boolean isTrue = dao.heartCheck(product_no, userNum);
         return new ResponseEntity<>(isTrue, HttpStatus.OK);
 
+    }
+    // 관심 상품 삭제
+    @PostMapping("/deleteHeart")
+    public ResponseEntity<Boolean> deleteLikeProduct(@RequestBody Map<String, Integer> deleteProduct) {
+        int userNo = deleteProduct.get("userNum");
+        int productNo = deleteProduct.get("productNo");
+        ProductDAO dao = new ProductDAO();
+        boolean isTrue = dao.deleteLikeProduct(productNo, userNo);
+        return new ResponseEntity<>(isTrue, HttpStatus.OK);
     }
 }
