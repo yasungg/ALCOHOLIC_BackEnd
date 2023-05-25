@@ -34,7 +34,7 @@ public class ProductController {
         List<ProductVO> list = dao.ProductInfo(product);
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
-
+    // 관심상품 추가
     @PostMapping("/insertLikeProduct")
     public ResponseEntity<Boolean> insertLikeProduct(@RequestBody Map<String, Integer> insertProduct) {
         int userNo = insertProduct.get("userNum");
@@ -43,6 +43,7 @@ public class ProductController {
         boolean isTrue =dao.insertLikeProduct(productNo,userNo);
         return new ResponseEntity<>(isTrue, HttpStatus.OK);
     }
+    // 관심 상품 조회
     @GetMapping("/likeProduct")
     public ResponseEntity<List<LikeProductVO>> likeProductInfo(@RequestParam int userNo) {
         ProductDAO dao = new ProductDAO();
