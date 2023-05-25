@@ -216,6 +216,7 @@ public class ProductDAO {
         if (result == 1) return true;
         else return false;
     }
+    // 관심 상품 하트 제거
     public boolean deleteLikeProduct(int productNo, int userNo) {
         int result = 0;
         String sql = "DELETE FROM LIKEPRODUCT WHERE USER_NO =? AND PRODUCT_NO = ?";
