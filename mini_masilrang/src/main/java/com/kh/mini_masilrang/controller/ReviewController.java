@@ -29,15 +29,17 @@ public class ReviewController {
 
     @PostMapping("/product/insertReview")
     public ResponseEntity<String> insertReview(@RequestBody Map<String, Object> reviewData) {
-        int user_no = (int) reviewData.get("user_no");
 
+        int user_no = (int) reviewData.get("user_no");
         String rev_content = (String) reviewData.get("rev_content");
+        String rev_img = (String) reviewData.get("rev_img");
         int product = Integer.parseInt((String) reviewData.get("product"));
+
         System.out.println(user_no);
         System.out.println(rev_content);
 
         ReviewDAO dao = new ReviewDAO();
-        dao.insertReview(user_no, rev_content, product);
+        dao.insertReview(user_no, rev_content, rev_img, product);
 
         return new ResponseEntity<>("true", HttpStatus.OK);
     }
@@ -47,9 +49,10 @@ public class ReviewController {
     public ResponseEntity<String> updateReview(@RequestBody Map<String, Object> reviewData) {
         int rev_no = Integer.parseInt((String) reviewData.get("rev_no"));
         String rev_content = (String) reviewData.get("rev_content");
+        String rev_img = (String) reviewData.get("rev_img");
 
         ReviewDAO dao = new ReviewDAO();
-        dao.updateReview(rev_no, rev_content);
+        dao.updateReview(rev_no, rev_content, rev_img);
         return new ResponseEntity<>("True", HttpStatus.OK);
     }
 
@@ -58,5 +61,13 @@ public class ReviewController {
         ReviewDAO dao = new ReviewDAO();
         dao.deleteReview(rev_no);
         return new ResponseEntity<>("True", HttpStatus.OK);
+    }
+
+    // 마이페이지 리뷰 조회
+    @GetMapping("/myReview")
+    public ResponseEntity<List<ReviewVO>> myReview(@RequestParam int userNo) {
+        ReviewDAO dao = new ReviewDAO();
+        List<ReviewVO> list = dao.myReview(userNo);
+        return new ResponseEntity<>(list, HttpStatus.OK);
     }
 }
